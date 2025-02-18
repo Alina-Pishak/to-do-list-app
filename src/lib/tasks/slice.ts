@@ -1,11 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { createTaskThunk, deleteTaskThunk, getTasksThunk } from "./thunks";
+import {
+  createTaskThunk,
+  deleteTaskThunk,
+  getTasksThunk,
+  updateTaskThunk,
+} from "./thunks";
 
 import { ITaskState } from "@/types/task";
 
 const initialState: ITaskState = {
-  tasks: [],
+  items: [],
   status: "idle",
 };
 
@@ -20,16 +25,25 @@ const taskSlice = createSlice({
       })
       .addCase(getTasksThunk.fulfilled, (state, action) => {
         state.status = "idle";
-        state.tasks = action.payload;
+        state.items = action.payload ? Object.values(action.payload) : [];
       })
       .addCase(getTasksThunk.rejected, (state) => {
         state.status = "failed";
       })
       .addCase(createTaskThunk.fulfilled, (state, action) => {
-        state.tasks.push(action.payload);
+        state.items.unshift(action.payload);
+      })
+      .addCase(updateTaskThunk.fulfilled, (state, action) => {
+        state.items = state.items.map((item) => {
+          if (item.id === action.payload.id) {
+            return { ...item, ...action.payload };
+          } else {
+            return item;
+          }
+        });
       })
       .addCase(deleteTaskThunk.fulfilled, (state, action) => {
-        state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+        state.items = state.items.filter((task) => task.id !== action.payload);
       });
   },
 });

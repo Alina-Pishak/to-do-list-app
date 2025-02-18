@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/Button/Button";
 import { useAppDispatch } from "@/lib/hooks";
 import { createTaskThunk, getTasksThunk } from "@/lib/tasks/thunks";
+import { TaskStatus } from "@/types/status";
 import { ITask } from "@/types/task";
 import React, { useState } from "react";
 
@@ -17,12 +18,11 @@ export const AddTaskForm = () => {
       setError("Title is required");
       return;
     }
-
     const newTask: ITask = {
-      id: `${Date.now() + Math.random()}`,
+      id: "",
       title,
-      completed: false,
-      created: new Date(),
+      status: TaskStatus.NOT_COMPLETED,
+      created: new Date().toISOString(),
     };
 
     try {

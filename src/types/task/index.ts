@@ -1,11 +1,20 @@
+import { TaskStatus } from "../status";
+
 export interface ITask {
   id: string;
   title: string;
-  completed: boolean;
-  created: Date;
+  status: TaskStatus;
+  created: string;
 }
 
 export interface ITaskState {
-  tasks: ITask[];
+  items: ITask[];
   status: "idle" | "loading" | "failed";
+}
+
+export interface ITaskBodyOptional {
+  id: string;
+  title?: string;
+  status?: TaskStatus;
+  created?: string;
 }
