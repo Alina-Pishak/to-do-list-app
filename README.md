@@ -1,6 +1,6 @@
 # Tasks Management App
 
-This is a task management web application built using Next.js, Redux, and TypeScript. It allows users to manage tasks, filter them by status, and add new tasks via a modal form.
+This is a task management web application built using Next.js, Redux, and TypeScript. It allows users to manage tasks, filter them by status, and add new tasks.
 
 ## Getting Started
 
