@@ -78,7 +78,7 @@ export const Filters: FC<IFiltersProps> = ({ setFilters, filters }) => {
       {/* Reset Button */}
       <Button
         onClick={handleResetFilters}
-        className="w-full border border-blue-950"
+        className="w-full border border-blue-950 md:w-56"
       >
         Reset
       </Button>
