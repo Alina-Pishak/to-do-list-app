@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { createTask, deleteTask, getTasks, updateTaskById } from "../api/tasks";
+import { addTask, deleteTask, getTasks, updateTaskById } from "../api/tasks";
 
 import { ITask, ITaskBodyOptional } from "@/types/task";
 
@@ -9,10 +9,10 @@ export const getTasksThunk = createAsyncThunk("tasks/getTasks", async () => {
   return tasks;
 });
 
-export const createTaskThunk = createAsyncThunk(
-  "tasks/createTask",
+export const addTaskThunk = createAsyncThunk(
+  "tasks/addTask",
   async (newTask: ITask) => {
-    const addedTask = await createTask(newTask);
+    const addedTask = await addTask(newTask);
     const updatedTask = await updateTaskById(addedTask.name, {
       id: addedTask.name,
     });

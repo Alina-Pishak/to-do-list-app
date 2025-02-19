@@ -11,7 +11,7 @@ export const getTasks = async () => {
   return await res.json();
 };
 
-export const createTask = async (body: ITask) => {
+export const addTask = async (body: ITask) => {
   const res = await fetch(`${url}/tasks.json?key=${key}`, {
     method: "POST",
     body: JSON.stringify(body),

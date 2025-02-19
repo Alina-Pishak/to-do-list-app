@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
-  createTaskThunk,
+  addTaskThunk,
   deleteTaskThunk,
   getTasksThunk,
   updateTaskThunk,
@@ -11,7 +11,7 @@ import { ITaskState } from "@/types/task";
 
 const initialState: ITaskState = {
   items: [],
-  status: "idle",
+  status: "loading",
 };
 
 const taskSlice = createSlice({
@@ -30,7 +30,7 @@ const taskSlice = createSlice({
       .addCase(getTasksThunk.rejected, (state) => {
         state.status = "failed";
       })
-      .addCase(createTaskThunk.fulfilled, (state, action) => {
+      .addCase(addTaskThunk.fulfilled, (state, action) => {
         state.items.unshift(action.payload);
       })
       .addCase(updateTaskThunk.fulfilled, (state, action) => {

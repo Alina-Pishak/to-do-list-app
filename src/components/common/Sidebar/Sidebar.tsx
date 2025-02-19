@@ -1,34 +1,73 @@
+"use client";
+
+import { useState } from "react";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-interface ILink {
-  id: string;
-  href: string;
-  name: string;
-}
+import { Menu, X } from "lucide-react";
+import clsx from "clsx";
 
-const links: ILink[] = [
-  { id: "1", href: "/dashboard", name: "Dashboard" },
-  { id: "2", href: "/tasks", name: "Tasks" },
+const navLinks = [
+  { href: "/tasks", label: "All Tasks" },
+  { href: "/dashboard", label: "Dashboard" },
 ];
 
-export default function Sidebar() {
+export const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
   return (
-    <aside className="md:block h-screen w-64 bg-linear-to-t from-blue-950 to-slate-200 text-primary p-6">
-      <h2 className="text-xl mb-6">To do List App</h2>
-      <nav>
-        <ul className="space-y-4">
-          {links.map((link) => (
-            <li key={link.id}>
-              <Link
-                href={link.href}
-                className="block px-4 py-2 rounded-lg text-base hover:bg-accent transition-all"
-              >
-                {link.name}
-              </Link>
-            </li>
+    <>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-gray-800 text-white rounded-md shadow-md"
+        aria-label={isOpen ? "close sidebar" : "open sidebar"}
+      >
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      <aside
+        className={clsx(
+          "fixed top-0 left-0 h-full bg-gray-800 text-white w-64 p-5 space-y-6 shadow-lg transition-transform z-50",
+          "lg:translate-x-0",
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        <button
+          onClick={() => setIsOpen(false)}
+          aria-label="close sidebar"
+          className="lg:hidden absolute top-4 right-4 text-gray-400 hover:text-white"
+        >
+          <X size={24} />
+        </button>
+
+        <h2 className="text-2xl font-bold">To do List App</h2>
+
+        <nav className="space-y-4">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={clsx(
+                "block px-4 py-2 rounded-md transition duration-300",
+                pathname === href
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-gray-700"
+              )}
+            >
+              {label}
+            </Link>
           ))}
-        </ul>
-      </nav>
-    </aside>
+        </nav>
+      </aside>
+
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+    </>
   );
-}
+};

@@ -4,17 +4,18 @@ export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/sections/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-      colors: {
-        primary: "#f8fafc",
-        secondary: "#94a3b8",
-        accent: "#172554",
-        bgPrimary: "#020617",
-        // dark: "#1F2937",
-        // light: "#FFFFFF",
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "24px",
+          sm: "24px",
+          md: "42px",
+        },
       },
     },
   },
